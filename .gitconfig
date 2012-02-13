@@ -5,19 +5,21 @@
 	excludesfile = /Users/trisweb/.gitignore
 	autocrlf = false
 [color]
-	 branch = auto
-	 diff = auto
-	 status = auto
+	branch = auto
+	diff = auto
+	status = auto
+[format]
+	pretty = %C(magenta bold)%h%Creset %s %C(blue)(%an, %cr)%Creset
 [color "branch"]
-	 current = yellow reverse
-	 local = yellow
-	 remote = green
+	current = yellow reverse
+	local = yellow
+	remote = green
 [color "diff"]
-	 meta = yellow bold
-	 frag = magenta bold
-	 old = red
-	 new = green
+	meta = yellow bold
+	frag = magenta bold
+	old = red
+	new = green
 [color "status"]
-	 added = yellow
-	 changed = green
-	 untracked = cyan
+	added = yellow
+	changed = green
+	untracked = cyan
