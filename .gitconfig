@@ -1,0 +1,6 @@
+[user]
+	name = Tristan Harward
+	email = trisweb@gmail.com
+[core]
+	excludesfile = /Users/trisweb/.gitignore
+	autocrlf = true
