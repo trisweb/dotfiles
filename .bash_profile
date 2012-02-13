@@ -12,6 +12,7 @@ alias t4='trisweb -4'
 
 ## From Harley
 # git
+alias ga='git add'
 alias gl='git pull'
 alias gp='git push'
 alias gd='git diff --ignore-space-at-eol' # add --color if you don't have color as default
