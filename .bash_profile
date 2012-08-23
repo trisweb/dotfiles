@@ -37,7 +37,8 @@ alias rg='rails g'
 alias flashlog='tail -f -n 100 /Users/trisweb/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt'
 
 if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
-. /usr/local/etc/bash_completion.d/git-completion.bash
+	. /usr/local/etc/bash_completion.d/git-completion.bash
+	. /usr/local/etc/bash_completion.d/git-prompt.sh
 fi
 
 # Awesomely useful SSH proxying command (forced to use ipv4 so we're not double-tunneling)
