@@ -3,7 +3,7 @@
 	email = trisweb@gmail.com
 [core]
 	excludesfile = /Users/trisweb/.gitignore
-	autocrlf = false
+	autocrlf = input
 [color]
 	branch = auto
 	diff = auto
@@ -23,3 +23,5 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+[push]
+	default = current

@@ -9,6 +9,7 @@ alias trisweb='ssh -4 trisweb.com'
 alias tw='trisweb'
 alias t='trisweb'
 alias t4='trisweb -4'
+alias mt="mkdir /Volumes/trisweb && sshfs trisweb@trisweb.com:/home/trisweb/ /Volumes/trisweb -oauto_cache,reconnect,defer_permissions,negative_vncache,volname=trisweb,transform_symlinks,follow_symlinks,noappledouble"
 
 ## From Harley
 # git
@@ -16,6 +17,7 @@ alias ga='git add'
 alias gl='git pull'
 alias gp='git push'
 alias gd='git diff --ignore-space-at-eol' # add --color if you don't have color as default
+alias gdc='git diff --cached'
 alias gc='git commit'
 alias gca='git commit -a'
 alias gco='git checkout'
@@ -34,18 +36,8 @@ alias rg='rails g'
 
 alias flashlog='tail -f -n 100 /Users/trisweb/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt'
 
-
-alias setaws-ibex='export EC2_PRIVATE_KEY=~/.aws/ibex/pk.pem;
-  export EC2_CERT=~/.aws/ibex/cert.pem;
-  export EC2_SSH_ID=~/.aws/ibex/id_rsa-gsg-keypair.pem'
-
-alias setaws-silvertip='export EC2_PRIVATE_KEY=~/.aws/silvertip/pk.pem;
-  export EC2_CERT=~/.aws/silvertip/cert.pem;
-  export EC2_SSH_ID=~/.aws/silvertip/id_rsa-gsg-keypair.pem'
-
-
-if [ -f /opt/local/etc/bash_completion ]; then
-	. /opt/local/etc/bash_completion
+if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+. /usr/local/etc/bash_completion.d/git-completion.bash
 fi
 
 # Awesomely useful SSH proxying command (forced to use ipv4 so we're not double-tunneling)
@@ -57,13 +49,10 @@ alias svndowngrade='change-svn-wc-format . 1.5 --force'
 alias svndowngrade4='change-svn-wc-format . 1.4 --force'
 alias svn4='/usr/local/bin/svn'
 
-export EDITOR='nano'
-
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
-
-export EDITOR="mate"
+export EDITOR="subl -w"
 
 LTGREEN="\[\033[40;1;32m\]"
 LTBLUE="\[\033[40;1;34m\]"
@@ -71,13 +60,13 @@ CLEAR="\[\033[0m\]"
 GRAY2="\[\033[40;1;30m\]"
 LIGHT_GRAY="\[\033[40;1;33m\]"
 
-NORMAL='\033[0m'
-BLUE='\033[34;01m'
-CYAN='\033[36;01m'
-GREEN='\033[32;01m'
-RED='\033[31m'
-GRAY='\033[37;01m'
-YELLOW='\033[33;01m'
+NORMAL='\[\033[0m\]'
+BLUE='\[\033[34;01m\]'
+CYAN='\[\033[36;01m\]'
+GREEN='\[\033[32;01m\]'
+RED='\[\033[31m\]'
+GRAY='\[\033[37;01m\]'
+YELLOW='\[\033[33;01m\]'
 
 # show branch and dirty status
 function minutes_since_last_commit {
@@ -88,25 +77,29 @@ function minutes_since_last_commit {
   echo $MINUTES_SINCE_LAST_COMMIT
 }
 
+function git_history_graph {
+  # Include --author to limit to one person: --author "Tristan Harward" 
+  for hour in $(seq 8 -1 0); do git log --before="${hour} hours" --after="$[${hour}+1] hours" --format=oneline | wc -l; done | spark
+}
+
 function minutes_with_color {
   local G="$(__gitdir)"
   if [ -n "$G" ]; then
     local MINUTES=`minutes_since_last_commit`
-    if [ "$MINUTES " -gt 30 ]; then
+    if [ "$MINUTES " -gt 120 ]; then
         local COLOR=${RED}
-    elif [ "$MINUTES" -gt 10 ]; then
+    elif [ "$MINUTES" -gt 30 ]; then
         local COLOR=${YELLOW}
     else
         local COLOR=${GREEN}
     fi
-
-    local SINCE_LAST_COMMIT="|${COLOR}${MINUTES}m${NORMAL}"
+    local SINCE_LAST_COMMIT="|${COLOR}${MINUTES}m${NORMAL}|${COLOR}$(git_history_graph) ${NORMAL}"
     echo ${SINCE_LAST_COMMIT}
   fi
 }
 
 function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo " ⚡"
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "|⚡"
 }
 
 function parse_git_branch {
@@ -142,7 +135,7 @@ export AWS_ELB_HOME=/Users/trisweb/Silvertip/AWS/ElasticLoadBalancing-1.0.1.23
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
 
 #PATH
-export PATH=/Users/trisweb/android/sdk/tools:/Users/trisweb/android/sdk/platform-tools:/Users/trisweb/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql83/bin:$PATH:$EC2_HOME/bin:$JAVA_HOME/bin:$AWS_AUTO_SCALING_HOME/bin:$AWS_CLOUDWATCH_HOME/bin:$AWS_ELB_HOME/bin:/usr/local/flex3sdk/bin
+export PATH=/usr/local/bin:/usr/local/sbin:/Users/trisweb/android/sdk/tools:/Users/trisweb/android/sdk/platform-tools:/Users/trisweb/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql83/bin:$PATH:$EC2_HOME/bin:$JAVA_HOME/bin:$AWS_AUTO_SCALING_HOME/bin:$AWS_CLOUDWATCH_HOME/bin:$AWS_ELB_HOME/bin:/usr/local/flex3sdk/bin
 
 #Shortcuts
 alias setaws1='export EC2_PRIVATE_KEY=/Users/trisweb/.aws/silvertip/pk.pem;
@@ -177,3 +170,5 @@ export FDK_EXE
 
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+
+export ENABLE_WATCHR_GROWL=true
