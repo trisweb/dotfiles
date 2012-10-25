@@ -3,6 +3,7 @@ alias l='ls -l'
 alias ..='cd ..'
 alias c='clear'
 alias su='su -l'
+alias ss='cd /Users/trisweb/SocialSci/socialsci'
 
 # SSH Shortcuts
 alias trisweb='ssh -4 trisweb.com'
@@ -100,7 +101,7 @@ function minutes_with_color {
 }
 
 function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "|⚡"
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "|⚡"
 }
 
 function parse_git_branch {
@@ -122,46 +123,16 @@ PROMPT_COMMAND=prompt_command
 
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
-
-# Amazon AWS stuff.
-
-# Amazon Web Services
-export EC2_HOME=/Users/trisweb/Silvertip/AWS/ec2-api-tools
-export AWS_AUTO_SCALING_HOME=/Users/trisweb/Silvertip/AWS/AutoScaling-1.0.4.4
-export AWS_CLOUDWATCH_HOME=/Users/trisweb/Silvertip/AWS/CloudWatch-1.0.0.24
-export AWS_ELB_HOME=/Users/trisweb/Silvertip/AWS/ElasticLoadBalancing-1.0.1.23
-
-
 #Java
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
 
 #PATH
-export PATH=/usr/local/bin:/usr/local/sbin:/Users/trisweb/android/sdk/tools:/Users/trisweb/android/sdk/platform-tools:/Users/trisweb/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql83/bin:$PATH:$EC2_HOME/bin:$JAVA_HOME/bin:$AWS_AUTO_SCALING_HOME/bin:$AWS_CLOUDWATCH_HOME/bin:$AWS_ELB_HOME/bin:/usr/local/flex3sdk/bin
+export PATH=/usr/local/bin:/usr/local/sbin:/Users/trisweb/android/sdk/tools:/Users/trisweb/android/sdk/platform-tools:/Users/trisweb/bin:/opt/local/lib/postgresql83/bin:$PATH
 
-#Shortcuts
-alias setaws1='export EC2_PRIVATE_KEY=/Users/trisweb/.aws/silvertip/pk.pem;
-			   export EC2_CERT=/Users/trisweb/.aws/silvertip/cert.pem;
-			   export EC2_SSH_ID=/Users/trisweb/.aws/silvertip/id_rsa-gsg-keypair.pem'
-			
-alias setaws2='export EC2_PRIVATE_KEY=/Users/trisweb/.aws/tharward/pk.pem; 
+alias setaws='export EC2_PRIVATE_KEY=/Users/trisweb/.aws/tharward/pk.pem; 
 			   export EC2_CERT=/Users/trisweb/.aws/tharward/cert.pem; 
 			   export EC2_SSH_ID=/Users/trisweb/.aws/tharward/id_rsa-gsg-keypair.pem' 
-
-alias setaws3='export EC2_PRIVATE_KEY=/Users/trisweb/.aws/privatebeta/pk.pem;
-               export EC2_CERT=/Users/trisweb/.aws/privatebeta/cert.pem;
-               export EC2_SSH_ID=/Users/trisweb/.aws/privatebeta/id_rsa-gsg-keypair.pem'
-
 alias ec2ssh='ssh -i $EC2_SSH_ID '
-
-#cd
-
-##
-# Your previous /Users/trisweb/.bash_profile file was backed up as /Users/trisweb/.bash_profile.macports-saved_2009-11-21_at_13:56:41
-##
-
-# MacPorts Installer addition on 2009-11-21_at_13:56:41: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
 
 # Initialization for FDK command line tools.Sat Feb 20 20:32:22 2010
 FDK_EXE="/Users/trisweb/bin/FDK/Tools/osx"
@@ -173,3 +144,6 @@ export FDK_EXE
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
 export ENABLE_WATCHR_GROWL=true
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
